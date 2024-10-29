@@ -26,7 +26,6 @@ public class UiHandler : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log(Persistor.Instance.playerName.Length);
         if (Persistor.Instance.playerName.Length <= 1) return;
 
         SceneManager.LoadScene(1);

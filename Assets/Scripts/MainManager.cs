@@ -11,6 +11,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text HiScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -19,6 +20,9 @@ public class MainManager : MonoBehaviour
     private bool m_GameOver = false;
 
     private string playerName;
+
+    private int hiScore;
+    private string hiScorePlayer;
 
     
     // Start is called before the first frame update
@@ -41,6 +45,8 @@ public class MainManager : MonoBehaviour
 
         playerName = Persistor.Instance.playerName;
         ScoreText.text = $"{playerName} Score : 0";
+
+        UpdateHiScoreText();
     }
 
     private void Update()
@@ -77,5 +83,21 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        if (m_Points > hiScore)
+        {
+            Persistor.Instance.hiScoreName = playerName;
+            Persistor.Instance.hiScore = m_Points;
+            Persistor.Instance.SaveHiScore();
+        }
+
+        UpdateHiScoreText();
+    }
+
+    private void UpdateHiScoreText()
+    {
+        hiScorePlayer = Persistor.Instance.hiScoreName;
+        hiScore = Persistor.Instance.hiScore;
+        HiScoreText.text = $"Best Score: {hiScorePlayer} : {hiScore}";
     }
 }
