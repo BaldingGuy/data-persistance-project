@@ -18,6 +18,8 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    private string playerName;
+
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,9 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        playerName = Persistor.Instance.playerName;
+        ScoreText.text = $"{playerName} Score : 0";
     }
 
     private void Update()
@@ -65,7 +70,7 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = $"{playerName} Score : {m_Points}";
     }
 
     public void GameOver()
